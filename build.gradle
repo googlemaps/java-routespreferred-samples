@@ -1,0 +1,64 @@
+plugins {
+    id 'application'
+    id 'com.google.protobuf' version '0.8.8'
+}
+
+repositories {
+    maven { // The google mirror is less flaky than mavenCentral()
+        url "https://maven-central.storage-download.googleapis.com/repos/central/data/" }
+    mavenCentral()
+    mavenLocal()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+def grpcVersion = '1.28.1'
+def protobufVersion = '3.11.0'
+def protocVersion = protobufVersion
+def nettyTcNativeVersion = '2.0.26.Final'
+
+dependencies {
+    implementation "io.grpc:grpc-netty:${grpcVersion}"
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    compileOnly "javax.annotation:javax.annotation-api:1.2"
+    runtimeOnly "io.netty:netty-tcnative-boringssl-static:${nettyTcNativeVersion}"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}
+
+sourceSets {
+  main {
+    proto {
+      srcDir "src/main/proto"
+    }
+    java {
+      srcDir "src/main/java"
+      srcDir "build/generated/source/proto/main/grpc"
+      srcDir "build/generated/source/proto/main/java"
+    }
+  }
+}
+
+startScripts.enabled = false
+
+task routesPreferredClient(type: CreateStartScripts) {
+    mainClassName = 'com.example.RoutesPreferredClient'
+    applicationName = 'example-routes-client'
+    outputDir = new File(project.buildDir, 'tmp')
+    classpath = startScripts.classpath
+}
+
+applicationDistribution.into('bin') {
+    from(routesPreferredClient)
+    fileMode = 0755
+}
