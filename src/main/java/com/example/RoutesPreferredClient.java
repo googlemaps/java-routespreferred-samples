@@ -15,20 +15,7 @@
 // [START maps_routespreferred_samples_default]
 package com.example;
 
-import com.google.maps.routes.v1.ComputeRouteMatrixRequest;
-import com.google.maps.routes.v1.ComputeRoutesRequest;
-import com.google.maps.routes.v1.ComputeRoutesResponse;
-import com.google.maps.routes.v1.Location;
-import com.google.maps.routes.v1.PolylineQuality;
-import com.google.maps.routes.v1.RouteMatrixDestination;
-import com.google.maps.routes.v1.RouteMatrixElement;
-import com.google.maps.routes.v1.RouteMatrixOrigin;
-import com.google.maps.routes.v1.RouteModifiers;
-import com.google.maps.routes.v1.RouteTravelMode;
-import com.google.maps.routes.v1.RoutingPreference;
-import com.google.maps.routes.v1.Units;
-import com.google.maps.routes.v1.Waypoint;
-import com.google.maps.routes.v1alpha.*;
+import com.google.maps.routes.v1.*;
 import com.google.type.LatLng;
 import io.grpc.CallOptions;
 import io.grpc.Channel;
@@ -85,10 +72,10 @@ public class RoutesPreferredClient {
     }
 
     private static final Logger logger = Logger.getLogger(RoutesPreferredClient.class.getName());
-    private final RoutesAlphaGrpc.RoutesAlphaBlockingStub blockingStub;
+    private final RoutesPreferredGrpc.RoutesPreferredBlockingStub blockingStub;
 
     public RoutesPreferredClient(Channel channel) {
-        blockingStub = RoutesAlphaGrpc.newBlockingStub(channel);
+        blockingStub = RoutesPreferredGrpc.newBlockingStub(channel);
     }
 
     public static Waypoint createWaypointForLatLng(double lat, double lng) {
