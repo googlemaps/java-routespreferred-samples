@@ -62,3 +62,15 @@ applicationDistribution.into('bin') {
     from(routesPreferredClient)
     fileMode = 0755
 }
+
+task routesPreferredCustomRoutesClient(type: CreateStartScripts) {
+    mainClassName = 'com.example.RoutesPreferredCustomRoutesClient'
+    applicationName = 'example-custom-routes-client'
+    outputDir = new File(project.buildDir, 'tmp')
+    classpath = startScripts.classpath
+}
+
+applicationDistribution.into('bin') {
+    from(routesPreferredCustomRoutesClient)
+    fileMode = 0755
+}
