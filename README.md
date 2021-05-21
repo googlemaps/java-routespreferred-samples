@@ -7,6 +7,14 @@
 
 Samples for Google Maps Routes Preferred.
 
-1. Set environment variable `GOOGLE_MAPS_API_KEY`.
-1. Build `./gradlew install`.
-1. Run: `./build/install/routes-example/bin/example-routes-client`.
+### For the ComputeRoutes and ComputeRouteMatrix examples
+
+1.  Set environment variable `GOOGLE_MAPS_API_KEY`.
+1.  Build `./gradlew install`.
+1.  Run: `./build/install/routes-example/bin/example-routes-client`.
+
+### For the ComputeCustomRoutes example
+
+1.  Set environment variable `GOOGLE_MAPS_API_KEY`.
+1.  Build `./gradlew install`.
+1.  Run: `./build/install/routes-example/bin/example-custom-routes-client`.
